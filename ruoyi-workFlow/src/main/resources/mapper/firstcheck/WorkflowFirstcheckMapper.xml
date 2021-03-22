@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.firstcheck.mapper.WorkflowFirstcheckMapper">
+
+    <resultMap type="WorkflowFirstcheck" id="WorkflowFirstcheckResult">
+        <result property="id"    column="id"    />
+        <result property="type"    column="type"    />
+        <result property="title"    column="title"    />
+        <result property="reason"    column="reason"    />
+        <result property="firstcheckStartTime"    column="firstcheck_start_time"    />
+        <result property="firstcheckEndTime"    column="firstcheck_end_time"    />
+        <result property="instanceId"    column="instance_id"    />
+        <result property="state"    column="state"    />
+        <result property="createName"    column="create_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="realName"    column="real_name"    />
+        <result property="showName"    column="show_name"    />
+        <result property="filePath"    column="file_path"    />
+    </resultMap>
+
+    <sql id="selectWorkflowFirstcheckVo">
+        select id, type, title, reason, firstcheck_start_time, firstcheck_end_time, instance_id, state, create_name,create_by, create_time, update_time,real_name,show_name,file_path from workflow_firstcheck
+    </sql>
+
+    <select id="selectWorkflowFirstcheckListByWorkflowFirstcheckAndDeptId"  resultMap="WorkflowFirstcheckResult">
+        <include refid="selectWorkflowFirstcheckVo"/>
+        where create_by in (SELECT user_name FROM `sys_user` where dept_id in (SELECT dept_id FROM sys_dept WHERE dept_id = #{deptId} or find_in_set( #{deptId} , ancestors ) ))
+        <if test="workflowFirstcheck.type != null  and workflowFirstcheck.type != ''"> and type = #{workflowFirstcheck.type}</if>
+        <if test="workflowFirstcheck.title != null  and workflowFirstcheck.title != ''"> and title = #{workflowFirstcheck.title}</if>
+        <if test="workflowFirstcheck.reason != null  and workflowFirstcheck.reason != ''"> and reason = #{workflowFirstcheck.reason}</if>
+        <if test="workflowFirstcheck.firstcheckStartTime != null "> and firstcheck_start_time = #{workflowFirstcheck.firstcheckStartTime}</if>
+        <if test="workflowFirstcheck.firstcheckEndTime != null "> and firstcheck_end_time = #{workflowFirstcheck.firstcheckEndTime}</if>
+        <if test="workflowFirstcheck.instanceId != null  and workflowFirstcheck.instanceId != ''"> and instance_id = #{workflowFirstcheck.instanceId}</if>
+        <if test="workflowFirstcheck.state != null  and workflowFirstcheck.state != ''"> and state = #{workflowFirstcheck.state}</if>
+        <if test="workflowFirstcheck.createName != null  and workflowFirstcheck.createName != ''"> and create_name = #{workflowFirstcheck.createName}</if>
+        <if test="workflowFirstcheck.createBy != null  and workflowFirstcheck.createBy != ''"> and create_by = #{workflowFirstcheck.createBy}</if>
+        <if test="workflowFirstcheck.realName != null  and workflowFirstcheck.realName != ''"> and real_name = #{workflowFirstcheck.realName}</if>
+        <if test="workflowFirstcheck.showName != null  and workflowFirstcheck.showName != ''"> and show_name = #{workflowFirstcheck.showName}</if>
+        <if test="workflowFirstcheck.filePath != null  and workflowFirstcheck.filePath != ''"> and file_path = #{workflowFirstcheck.filePath}</if>
+        order by create_time desc
+    </select>
+
+    <select id="selectWorkflowFirstcheckListByWorkflowFirstcheck"  resultMap="WorkflowFirstcheckResult">
+        <include refid="selectWorkflowFirstcheckVo"/>
+        <where>
+            <if test="workflowFirstcheck.type != null  and workflowFirstcheck.type != ''"> and type = #{workflowFirstcheck.type}</if>
+            <if test="workflowFirstcheck.title != null  and workflowFirstcheck.title != ''"> and title = #{workflowFirstcheck.title}</if>
+            <if test="workflowFirstcheck.reason != null  and workflowFirstcheck.reason != ''"> and reason = #{workflowFirstcheck.reason}</if>
+            <if test="workflowFirstcheck.firstcheckStartTime != null "> and firstcheck_start_time = #{workflowFirstcheck.firstcheckStartTime}</if>
+            <if test="workflowFirstcheck.firstcheckEndTime != null "> and firstcheck_end_time = #{workflowFirstcheck.firstcheckEndTime}</if>
+            <if test="workflowFirstcheck.instanceId != null  and workflowFirstcheck.instanceId != ''"> and instance_id = #{workflowFirstcheck.instanceId}</if>
+            <if test="workflowFirstcheck.state != null  and workflowFirstcheck.state != ''"> and state = #{workflowFirstcheck.state}</if>
+            <if test="workflowFirstcheck.createName != null  and workflowFirstcheck.createName != ''"> and create_name = #{workflowFirstcheck.createName}</if>
+            <if test="workflowFirstcheck.createBy != null  and workflowFirstcheck.createBy != ''"> and create_by = #{workflowFirstcheck.createBy}</if>
+            <if test="workflowFirstcheck.realName != null  and workflowFirstcheck.realName != ''"> and real_name = #{workflowFirstcheck.realName}</if>
+            <if test="workflowFirstcheck.showName != null  and workflowFirstcheck.showName != ''"> and show_name = #{workflowFirstcheck.showName}</if>
+            <if test="workflowFirstcheck.filePath != null  and workflowFirstcheck.filePath != ''"> and file_path = #{workflowFirstcheck.filePath}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectWorkflowFirstcheckList" parameterType="WorkflowFirstcheck" resultMap="WorkflowFirstcheckResult">
+        <include refid="selectWorkflowFirstcheckVo"/>
+        <where>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="firstcheckStartTime != null "> and firstcheck_start_time = #{firstcheckStartTime}</if>
+            <if test="firstcheckEndTime != null "> and firstcheck_end_time = #{firstcheckEndTime}</if>
+            <if test="instanceId != null  and instanceId != ''"> and instance_id = #{instanceId}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+            <if test="createName != null  and createName != ''"> and create_name = #{createName}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="realName != null  and realName != ''"> and real_name = #{realName}</if>
+            <if test="showName != null  and showName != ''"> and show_name = #{showName}</if>
+            <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectWorkflowFirstcheckById" parameterType="String" resultMap="WorkflowFirstcheckResult">
+        <include refid="selectWorkflowFirstcheckVo"/>
+        where id = #{id}
+    </select>
+    <select id="selectWorkflowFirstcheckByInstanceId" parameterType="String" resultMap="WorkflowFirstcheckResult">
+        <include refid="selectWorkflowFirstcheckVo"/>
+        where instance_id = #{instanceId}
+    </select>
+
+    <insert id="insertWorkflowFirstcheck" parameterType="WorkflowFirstcheck">
+        insert into workflow_firstcheck
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="type != null">type,</if>
+            <if test="title != null">title,</if>
+            <if test="reason != null">reason,</if>
+            <if test="firstcheckStartTime != null">firstcheck_start_time,</if>
+            <if test="firstcheckEndTime != null">firstcheck_end_time,</if>
+            <if test="instanceId != null">instance_id,</if>
+            <if test="state != null">state,</if>
+            <if test="createName != null">create_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="showName != null">show_name,</if>
+            <if test="filePath != null">file_path,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="type != null">#{type},</if>
+            <if test="title != null">#{title},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="firstcheckStartTime != null">#{firstcheckStartTime},</if>
+            <if test="firstcheckEndTime != null">#{firstcheckEndTime},</if>
+            <if test="instanceId != null">#{instanceId},</if>
+            <if test="state != null">#{state},</if>
+            <if test="createName != null">#{createName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="showName != null">#{showName},</if>
+            <if test="filePath != null">#{filePath},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWorkflowFirstcheck" parameterType="WorkflowFirstcheck">
+        update workflow_firstcheck
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null">type = #{type},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="firstcheckStartTime != null">firstcheck_start_time = #{firstcheckStartTime},</if>
+            <if test="firstcheckEndTime != null">firstcheck_end_time = #{firstcheckEndTime},</if>
+            <if test="instanceId != null">instance_id = #{instanceId},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="createName != null">create_name = #{createName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="showName != null">show_name = #{showName},</if>
+            <if test="filePath != null">file_path = #{filePath},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWorkflowFirstcheckById" parameterType="String">
+        delete from workflow_firstcheck where id = #{id}
+    </delete>
+
+    <delete id="deleteWorkflowFirstcheckByIds" parameterType="String">
+        delete from workflow_firstcheck where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
