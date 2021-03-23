@@ -26,6 +26,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @author ruoyi
  * @date 2020-12-29
  */
+//----
 @RestController
 @RequestMapping("/system/info")
 public class SysFileInfoController extends BaseController
