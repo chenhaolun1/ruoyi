@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.develop.mapper.SysFileToolswarehouseMapper">
+    
+    <resultMap type="SysFileToolswarehouse" id="SysFileToolswarehouseResult">
+        <result property="fileId"    column="file_id"    />
+        <result property="realName"    column="real_name"    />
+        <result property="showName"    column="show_name"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="categoriesName"    column="categories_name"    />
+    </resultMap>
+
+    <sql id="selectSysFileToolswarehouseVo">
+        select file_id, real_name, show_name, file_path, categories_name from sys_file_toolswarehouse
+    </sql>
+
+    <select id="selectSysFileToolswarehouseList" parameterType="SysFileToolswarehouse" resultMap="SysFileToolswarehouseResult">
+        <include refid="selectSysFileToolswarehouseVo"/>
+        <where>  
+            <if test="realName != null  and realName != ''"> and real_name like concat('%', #{realName}, '%')</if>
+            <if test="showName != null  and showName != ''"> and show_name like concat('%', #{showName}, '%')</if>
+            <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+            <if test="categoriesName != null  and categoriesName != ''"> and categories_name like concat('%', #{categoriesName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectSysFileToolswarehouseById" parameterType="Long" resultMap="SysFileToolswarehouseResult">
+        <include refid="selectSysFileToolswarehouseVo"/>
+        where file_id = #{fileId}
+    </select>
+        
+    <insert id="insertSysFileToolswarehouse" parameterType="SysFileToolswarehouse" useGeneratedKeys="true" keyProperty="fileId">
+        insert into sys_file_toolswarehouse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="realName != null">real_name,</if>
+            <if test="showName != null">show_name,</if>
+            <if test="filePath != null">file_path,</if>
+            <if test="categoriesName != null">categories_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="realName != null">#{realName},</if>
+            <if test="showName != null">#{showName},</if>
+            <if test="filePath != null">#{filePath},</if>
+            <if test="categoriesName != null">#{categoriesName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysFileToolswarehouse" parameterType="SysFileToolswarehouse">
+        update sys_file_toolswarehouse
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="showName != null">show_name = #{showName},</if>
+            <if test="filePath != null">file_path = #{filePath},</if>
+            <if test="categoriesName != null">categories_name = #{categoriesName},</if>
+        </trim>
+        where file_id = #{fileId}
+    </update>
+
+    <delete id="deleteSysFileToolswarehouseById" parameterType="Long">
+        delete from sys_file_toolswarehouse where file_id = #{fileId}
+    </delete>
+
+    <delete id="deleteSysFileToolswarehouseByIds" parameterType="String">
+        delete from sys_file_toolswarehouse where file_id in
+        <foreach item="fileId" collection="array" open="(" separator="," close=")">
+            #{fileId}
+        </foreach>
+    </delete>
+    
+</mapper>

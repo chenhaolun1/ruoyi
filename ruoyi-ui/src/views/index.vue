@@ -86,6 +86,7 @@
       // 注册接收到数据的回调函数
       this.$socket.registerCallBack('fullScreen', this.recvData)
       this.$socket.registerCallBack('themeChange', this.recvThemeChange)
+
     },
     destroyed () {
       this.$socket.unRegisterCallBack('fullScreen')
@@ -156,9 +157,9 @@
       Trend
     },
     computed: {
-      logoSrc () {
-        return '/static/img/' + getThemeValue(this.theme).logoSrc
-      },
+      // logoSrc () {
+      //   return '/static/img/' + getThemeValue(this.theme).logoSrc
+      // },
       headerSrc () {
         return '/static/img/' + getThemeValue(this.theme).headerBorderSrc
       },
@@ -189,7 +190,7 @@
 
   .screen-container {
     width: 100%;
-    height: 800px;
+    height: 500px;
     padding: 0 20px;
     background-color:#161522;
     color: #fff;

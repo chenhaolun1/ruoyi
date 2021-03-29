@@ -1,17 +1,17 @@
-package com.ruoyi.system.domain;
+package com.ruoyi.develop.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * 文件信息对象 sys_file_standard
+ * 文件信息对象 sys_file_toolswarehouse
  * 
  * @author xiefei
  * @date 2020-12-29
  */
-public class SysFileStandard extends BaseEntity
+public class SysFileToolswarehouse extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 

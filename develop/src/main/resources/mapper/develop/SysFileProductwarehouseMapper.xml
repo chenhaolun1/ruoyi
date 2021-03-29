@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.system.mapper.SysFileStandardMapper">
+<mapper namespace="com.ruoyi.develop.mapper.SysFileProductwarehouseMapper">
     
-    <resultMap type="SysFileStandard" id="SysFileStandardResult">
+    <resultMap type="SysFileProductwarehouse" id="SysFileProductwarehouseResult">
         <result property="fileId"    column="file_id"    />
         <result property="realName"    column="real_name"    />
         <result property="showName"    column="show_name"    />
@@ -12,12 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="categoriesName"    column="categories_name"    />
     </resultMap>
 
-    <sql id="selectSysFileStandardVo">
-        select file_id, real_name, show_name, file_path, categories_name from sys_file_standard
+    <sql id="selectSysFileProductwarehouseVo">
+        select file_id, real_name, show_name, file_path, categories_name from sys_file_productwarehouse
     </sql>
 
-    <select id="selectSysFileStandardList" parameterType="SysFileStandard" resultMap="SysFileStandardResult">
-        <include refid="selectSysFileStandardVo"/>
+    <select id="selectSysFileProductwarehouseList" parameterType="SysFileProductwarehouse" resultMap="SysFileProductwarehouseResult">
+        <include refid="selectSysFileProductwarehouseVo"/>
         <where>  
             <if test="realName != null  and realName != ''"> and real_name like concat('%', #{realName}, '%')</if>
             <if test="showName != null  and showName != ''"> and show_name like concat('%', #{showName}, '%')</if>
@@ -26,13 +26,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectSysFileStandardById" parameterType="Long" resultMap="SysFileStandardResult">
-        <include refid="selectSysFileStandardVo"/>
+    <select id="selectSysFileProductwarehouseById" parameterType="Long" resultMap="SysFileProductwarehouseResult">
+        <include refid="selectSysFileProductwarehouseVo"/>
         where file_id = #{fileId}
     </select>
         
-    <insert id="insertSysFileStandard" parameterType="SysFileStandard" useGeneratedKeys="true" keyProperty="fileId">
-        insert into sys_file_standard
+    <insert id="insertSysFileProductwarehouse" parameterType="SysFileProductwarehouse" useGeneratedKeys="true" keyProperty="fileId">
+        insert into sys_file_productwarehouse
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="realName != null">real_name,</if>
             <if test="showName != null">show_name,</if>
@@ -47,8 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
-    <update id="updateSysFileStandard" parameterType="SysFileStandard">
-        update sys_file_standard
+    <update id="updateSysFileProductwarehouse" parameterType="SysFileProductwarehouse">
+        update sys_file_productwarehouse
         <trim prefix="SET" suffixOverrides=",">
             <if test="realName != null">real_name = #{realName},</if>
             <if test="showName != null">show_name = #{showName},</if>
@@ -58,12 +58,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where file_id = #{fileId}
     </update>
 
-    <delete id="deleteSysFileStandardById" parameterType="Long">
-        delete from sys_file_standard where file_id = #{fileId}
+    <delete id="deleteSysFileProductwarehouseById" parameterType="Long">
+        delete from sys_file_productwarehouse where file_id = #{fileId}
     </delete>
 
-    <delete id="deleteSysFileStandardByIds" parameterType="String">
-        delete from sys_file_standard where file_id in 
+    <delete id="deleteSysFileProductwarehouseByIds" parameterType="String">
+        delete from sys_file_productwarehouse where file_id in
         <foreach item="fileId" collection="array" open="(" separator="," close=")">
             #{fileId}
         </foreach>
